@@ -1,4 +1,5 @@
-﻿services:
+﻿version: '3'
+services:
   joy-api:
     container_name: joy-api
     build:
