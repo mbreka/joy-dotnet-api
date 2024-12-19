@@ -6,7 +6,6 @@ services:
       context: "."
       dockerfile: "Dockerfile"
       target: "base"
-    command: []
     ports:
       - 5026:5026
       - 7128:7128
