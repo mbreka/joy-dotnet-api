@@ -1,18 +1,31 @@
 ﻿services:
   joyapi:
     container_name: joy-api
-    image: joyapi
-    depends_on:
-      - db
+    build:
+      context: "/Users/mb/Projects/joy-dotnet-api/src"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
     ports:
       - 5026:5026
       - 7128:7128
       - 12760:12760
       - 8081:8081
       - 8080:8080
-    build:
-      context: .
-      dockerfile: Dockerfile
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/JoyApi.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "joyapi:dev"
+    depends_on:
+      - db
+    volumes:
+    - "/Users/mb/Projects/joy-dotnet-api/src:/app:rw"
+    - "/Users/mb/Projects/joy-dotnet-api/src:/src:rw"
+    - "/Users/mb/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"
     networks:
       - my-network
   
